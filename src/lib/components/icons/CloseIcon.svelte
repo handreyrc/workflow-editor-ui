@@ -1,0 +1,13 @@
+<script lang="ts">
+  interface Props {
+    width?: number;
+    height?: number;
+  }
+
+  let { width = 20, height = 20 }: Props = $props();
+</script>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" {width} {height} viewBox="0 0 20 20" fill="none">
+  <path d="M10.0001 8.93955L13.7126 5.22705L14.7731 6.28755L11.0606 10.0001L14.7731 13.7126L13.7126 14.7731L10.0001 11.0606L6.28755 14.7731L5.22705 13.7126L8.93955 10.0001L5.22705 6.28755L6.28755 5.22705L10.0001 8.93955Z" />
+</svg>

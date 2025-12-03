@@ -1,0 +1,62 @@
+{
+  "id": "complexWorkflow",
+  "version": "1.0",
+  "name": "Complex Workflow Example",
+  "description": "A more complex workflow with multiple operations, conditions, and parallel execution.",
+  "start": "Initialize",
+  "functions": [
+    { "name": "fetchData", "operation": "specs/dataAPI.yml#fetchData" },
+    { "name": "processData", "operation": "specs/dataProcessor.yml#processData" },
+    { "name": "validateData", "operation": "specs/validation.yml#validate" },
+    { "name": "sendNotification", "operation": "specs/notification.yml#send" }
+  ],
+  "states": [
+    {
+      "name": "Initialize",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "fetchDataAction",
+          "functionRef": { "refName": "fetchData" }
+        }
+      ],
+      "transition": "ProcessData"
+    },
+    {
+      "name": "ProcessData",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "processDataAction",
+          "functionRef": { "refName": "processData" }
+        }
+      ],
+      "transition": "ValidateData"
+    },
+    {
+      "name": "ValidateData",
+      "type": "switch",
+      "dataConditions": [
+        { "condition": "${ .valid }", "transition": "SendNotification" },
+        { "condition": "${ !.valid }", "transition": "EndProcess" }
+      ]
+    },
+    {
+      "name": "SendNotification",
+      "type": "operation",
+      "actions": [
+        {
+          "name": "notifyAction",
+          "functionRef": { "refName": "sendNotification" }
+        }
+      ],
+      "end": true
+    },
+    {
+      "name": "EndProcess",
+      "type": "sleep",
+      "duration": "PT5S",
+      "end": true
+    }
+  ]
+}

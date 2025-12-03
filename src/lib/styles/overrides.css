@@ -1,0 +1,25 @@
+html .splitpanes.default-theme .splitpanes__pane {
+  background: none !important;
+}
+
+html .splitpanes.default-theme .splitpanes__splitter {
+  width: 10px !important;
+  border-left: 0 !important;
+  background: transparent !important;
+}
+
+html .splitpanes.default-theme .splitpanes__splitter:before, html .splitpanes.default-theme .splitpanes__splitter:after {
+  background: var(--bg-sub-300) !important;
+}
+
+[data-popup] {
+  z-index: 100;
+}
+
+.splitpanes--vertical>.splitpanes__pane {
+  transition: none !important;
+}
+
+html .svelte-flow__node-group {
+  border-color: var(--stroke-sub-300) !important;
+}

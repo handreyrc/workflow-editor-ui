@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "deploymentId": "123e4567-e89b-12d3-a456-426614174000",
+      "projectId": "98765432-e89b-12d3-a456-426614174000",
+      "workflowId": "11112222-e89b-12d3-a456-426614174000",
+      "url": "https://api.example.com/deployments/workflow-service",
+      "status": "DEPLOY_SUCCESS",
+      "workflowName": "Payment Processing Workflow",
+      "projectName": "Financial Services API"
+    }
+  ],
+  "totalCount": 1
+}

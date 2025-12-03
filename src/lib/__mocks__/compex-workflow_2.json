@@ -1,0 +1,244 @@
+{
+  "id": "hello",
+  "specVersion": "0.8.0",
+  "version": "0.0.1",
+  "name": "GitHub Issue Notification Workflow",
+  "description": "Lists open issues from a GitHub repository and sends notifications to a Slack channel for each open issue, then sends a final Slack message with more details. If the number of issues exceeds 10, a meeting is scheduled to discuss them.",
+  "annotations": [
+    "product management",
+    "productivity"
+  ],
+  "extensions": [
+    {
+      "extensionid": "workflow-output-schema",
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "AnythingObject",
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  ],
+  "errors": [
+    {
+      "name": "GitHubError",
+      "code": "GitHubError"
+    },
+    {
+      "name": "SlackError",
+      "code": "SlackError"
+    }
+  ],
+  "start": "List Open Github Issues",
+  "functions": [
+    {
+      "name": "logInfo",
+      "type": "custom",
+      "operation": "sysout:INFO"
+    },
+    {
+      "name": "listRepoIssues",
+      "operation": "specs/github.yml#listRepoIssues"
+    },
+    {
+      "name": "sendSlackMessage",
+      "operation": "specs/slack.yml#postMessage"
+    }
+  ],
+  "states": [
+    {
+      "name": "List Open Github Issues",
+      "type": "operation",
+      "timeouts": {
+        "stateExecTimeout": "PT30S"
+      },
+      "actions": [
+        {
+          "name": "logStart",
+          "functionRef": {
+            "refName": "logInfo",
+            "arguments": {
+              "message": "${ \"Starting workflow for owner: \" + .owner + \", repo: \" + .repo + \", channel: \" + .channel }"
+            }
+          }
+        },
+        {
+          "name": "listIssuesAction",
+          "functionRef": {
+            "refName": "listRepoIssues",
+            "arguments": {
+              "owner": "${ .owner }",
+              "repo": "${ .repo }",
+              "state": "open"
+            }
+          },
+          "actionDataFilter": {
+            "toStateData": ".issues"
+          }
+        }
+      ],
+      "onErrors": [
+        {
+          "errorRef": "GitHubError",
+          "transition": "HandleGitHubError"
+        }
+      ],
+      "transition": "Send Individual Message Per Issue On Slack"
+    },
+    {
+      "name": "Send Individual Message Per Issue On Slack",
+      "type": "foreach",
+      "timeouts": {
+        "stateExecTimeout": "PT20S"
+      },
+      "inputCollection": "${ .issues }",
+      "iterationParam": "currentIssue",
+      "actions": [
+        {
+          "name": "logSendingMessage",
+          "functionRef": {
+            "refName": "logInfo",
+            "arguments": {
+              "message": "${ \"Sending Slack notification for issue: \" + .currentIssue.title }"
+            }
+          }
+        },
+        {
+          "name": "sendSlackMessage",
+          "functionRef": {
+            "refName": "sendSlackMessage",
+            "arguments": {
+              "channel": "${ .channel }",
+              "text": "${ \"*Title* :\" + (.currentIssue.title) + \", *Url:* \" + (.currentIssue.html_url) }"
+            }
+          }
+        }
+      ],
+      "onErrors": [
+        {
+          "errorRef": "SlackError",
+          "transition": "HandleSlackError"
+        }
+      ],
+      "transition": "Send Summary Message On Slack"
+    },
+    {
+      "name": "Send Summary Message On Slack",
+      "type": "operation",
+      "timeouts": {
+        "stateExecTimeout": "PT30S"
+      },
+      "actions": [
+        {
+          "name": "logSummary",
+          "functionRef": {
+            "refName": "logInfo",
+            "arguments": {
+              "message": "${ \"Sending summary message to Slack.\" }"
+            }
+          }
+        },
+        {
+          "name": "aggregateDataAndSendSlack",
+          "functionRef": {
+            "refName": "sendSlackMessage",
+            "arguments": {
+              "channel": "${ .channel }",
+              "text": "${ \" *Repository:* \" + (.repo) + \"\\n*Total number of labels* :\" + (.issues | [ .[] | .labels[].name ] | unique | length | tostring) + \"\\nTotal number of issues: \" + (.issues | length | tostring) }"
+            }
+          },
+          "actionDataFilter": {
+            "fromStateData": "${ . }",
+            "toStateData": "${ .slack_message }",
+            "results": "${ .message.text }"
+          }
+        }
+      ],
+      "transition": "Onboard"
+    },
+    {
+      "name": "HandleGitHubError",
+      "type": "operation",
+      "timeouts": {
+        "stateExecTimeout": "PT10S"
+      },
+      "actions": [
+        {
+          "name": "logGitHubError",
+          "functionRef": {
+            "refName": "logInfo",
+            "arguments": {
+              "message": "${ \"GitHub API error occurred. Please verify repository details.\" }"
+            }
+          }
+        },
+        {
+          "name": "notifyGitHubError",
+          "functionRef": {
+            "refName": "sendSlackMessage",
+            "arguments": {
+              "channel": "${ .channel }",
+              "text": "${ \"GitHub API error occurred. Please verify repository details.\" }"
+            }
+          }
+        }
+      ],
+      "transition": "Onboard"
+    },
+    {
+      "name": "HandleSlackError",
+      "type": "operation",
+      "timeouts": {
+        "stateExecTimeout": "PT10S"
+      },
+      "actions": [
+        {
+          "name": "logSlackError",
+          "functionRef": {
+            "refName": "logInfo",
+            "arguments": {
+              "message": "${ \"Slack notification error occurred. Check Slack configuration.\" }"
+            }
+          }
+        },
+        {
+          "name": "notifySlackError",
+          "functionRef": {
+            "refName": "sendSlackMessage",
+            "arguments": {
+              "channel": "${ .channel }",
+              "text": "${ \"Slack notification error occurred. Check Slack configuration.\" }"
+            }
+          }
+        }
+      ],
+      "transition": "Onboard"
+    },
+    {
+      "name": "Onboard",
+      "type": "operation",
+      "timeouts": {
+        "stateExecTimeout": "PT20S"
+      },
+      "actions": [
+        {
+          "name": "logOnboard",
+          "functionRef": {
+            "refName": "logInfo",
+            "arguments": {
+              "message": "${ \"Initiating onboarding process.\" }"
+            }
+          }
+        },
+        {
+          "name": "invokeOnboarding",
+          "subFlowRef": {
+            "invoke": "sync",
+            "workflowId": "basic"
+          }
+        }
+      ],
+      "end": true
+    }
+  ]
+}

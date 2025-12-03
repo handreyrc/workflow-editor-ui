@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap');
+
+@import 'tailwindcss';
+
+@import "@skeletonlabs/skeleton";
+
+@import '$lib/styles/theme.css' layer(base);
+@import '$lib/styles/overrides.css' layer(base);
+@import "$lib/styles/md-html.css";
+
+@import "$lib/styles/tailwind.css";
+
+@import '$lib/styles/components/button.css';
+@import '$lib/styles/components/switcher.css';
+@import '$lib/styles/components/toasts.css';
+
+@source "../node_modules/@skeletonlabs/skeleton-svelte/dist";
+
+@layer base {
+  /*
+    The default border color has changed to `currentColor` in Tailwind CSS v4,
+    so we've added these compatibility styles to make sure everything still
+    looks the same as it did with Tailwind CSS v3.
+
+    If we ever want to remove these styles, we need to add an explicit border
+    color utility to any element that depends on these defaults.
+  */
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  :root {
+    scrollbar-color: var(--primary-base) var(--faded-lighter);
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  :focus-visible {
+    outline: 1px dotted var(--faded-base);
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--verified-light);
+    color: var(--text-strong-950);
+    text-shadow: none;
+  }
+
+  body {
+    @apply bg-pageBg;
+    color: var(--text-strong-950);
+    font-family: Poppins, sans-serif;
+  }
+
+  code, pre, .code {
+    font-family: 'Source Code Pro', monospace !important;
+  }
+
+  svg {
+    @apply fill-current;
+  }
+}
+
+

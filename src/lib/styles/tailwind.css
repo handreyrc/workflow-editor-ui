@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-pageBg: var(--page-bg);
+  --color-bgSection: var(--bg-section);
+  --color-bgSectionOnHover: var(--bg-section-on-hover);
+  --color-tableHeader: var(--table-header);
+  --color-primaryDark: var(--primary-dark);
+  --color-primaryDarker: var(--primary-darker);
+  --color-primaryBase: var(--primary-base);
+  --color-primaryAlpha24: var(--primary-alpha-24);
+  --color-primaryAlpha16: var(--primary-alpha-16);
+  --color-primaryAlpha10: var(--primary-alpha-10);
+
+  --color-secondaryDark: var(--secondary-dark);
+  --color-secondaryDarker: var(--secondary-darker);
+  --color-secondaryBase: var(--secondary-base);
+  --color-secondaryAlpha24: var(--secondary-alpha-24);
+  --color-secondaryAlpha16: var(--secondary-alpha-16);
+
+  --color-secondaryAlpha10: var(--secondary-alpha-10);
+  --color-staticBlack: var(--static-black);
+  --color-staticWhite: var(--static-white);
+
+  --color-bgStrong950: var(--bg-strong-950);
+  --color-bgSurface800: var(--bg-surface-800);
+  --color-bgSub300: var(--bg-sub-300);
+  --color-bgSoft200: var(--bg-soft-200);
+  --color-bgWeak50: var(--bg-weak-50);
+  --color-bgWhite0: var(--bg-white-0);
+
+  --color-textStrong950: var(--text-strong-950);
+  --color-textSub600: var(--text-sub-600);
+  --color-textSoft400: var(--text-soft-400);
+  --color-textDisabled300: var(--text-disabled-300);
+  --color-textWhite0: var(--text-white-0);
+
+  --color-strokeStrong950: var(--stroke-strong-950);
+  --color-strokeSub300: var(--stroke-sub-300);
+  --color-strokeSoft200: var(--stroke-soft-200);
+  --color-strokeWhite0: var(--stroke-white-0);
+
+  --color-iconStrong950: var(--icon-strong-950);
+  --color-iconSub600: var(--icon-sub-600);
+  --color-iconSoft400: var(--icon-soft-400);
+  --color-iconDisabled300: var(--icon-disabled-300);
+  --color-iconWhite0: var(--icon-white-0);
+
+  --color-fadedDark: var(--faded-dark);
+  --color-fadedBase: var(--faded-base);
+  --color-fadedLight: var(--faded-light);
+  --color-fadedLighter: var(--faded-lighter);
+
+  --color-informationDark: var(--information-dark);
+  --color-informationBase: var(--information-base);
+  --color-informationLight: var(--information-light);
+  --color-informationLighter: var(--information-lighter);
+
+  --color-warningDark: var(--warning-dark);
+  --color-warningBase: var(--warning-base);
+  --color-warningLight: var(--warning-light);
+  --color-warningLighter: var(--warning-lighter);
+
+  --color-errorDark: var(--error-dark);
+  --color-errorBase: var(--error-base);
+  --color-errorLight: var(--error-light);
+  --color-errorLighter: var(--error-lighter);
+
+  --color-successDark: var(--success-dark);
+  --color-successBase: var(--success-base);
+  --color-successLight: var(--success-light);
+  --color-successLighter: var(--success-lighter);
+
+  --color-awayDark: var(--away-dark);
+  --color-awayBase: var(--away-base);
+  --color-awayLight: var(--away-light);
+  --color-awayLighter: var(--away-lighter);
+
+  --color-featureDark: var(--feature-dark);
+  --color-featureBase: var(--feature-base);
+  --color-featureLight: var(--feature-light);
+  --color-featureLighter: var(--feature-lighter);
+
+  --color-verifiedDark: var(--verified-dark);
+  --color-verifiedBase: var(--verified-base);
+  --color-verifiedLight: var(--verified-light);
+  --color-verifiedLighter: var(--verified-lighter);
+
+  --color-highlightedDark: var(--highlighted-dark);
+  --color-highlightedBase: var(--highlighted-base);
+  --color-highlightedLight: var(--highlighted-light);
+  --color-highlightedLighter: var(--highlighted-lighter);
+
+  --color-stableDark: var(--stable-dark);
+  --color-stableBase: var(--stable-base);
+  --color-stableLight: var(--stable-light);
+  --color-stableLighter: var(--stable-lighter);
+
+  --font-500: 500;
+}
+
+@utility center {
+  @apply flex items-center justify-center;
+}
+
+@utility overlay {
+  @apply backdrop-blur-[5px] bg-(--overlay);
+}
+
+@utility disabled-container {
+  @apply pointer-events-none opacity-50;
+}

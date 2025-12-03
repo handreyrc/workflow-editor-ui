@@ -1,0 +1,21 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g clip-path="url(#clip0_11046_142376)">
+<rect width="32" height="32" rx="12" fill="url(#pattern0_11046_142376)"/>
+<path opacity="0.5" d="M30 16C30 14.1615 29.6379 12.341 28.9343 10.6424C28.2307 8.94387 27.1995 7.40053 25.8995 6.1005C24.5995 4.80048 23.0561 3.76925 21.3576 3.06569C19.659 2.36212 17.8385 2 16 2C14.1615 2 12.341 2.36212 10.6424 3.06569C8.94387 3.76925 7.40052 4.80049 6.1005 6.10051C4.80048 7.40053 3.76925 8.94387 3.06569 10.6424C2.36212 12.341 2 14.1615 2 16C2 17.8385 2.36212 19.659 3.06569 21.3576C3.76925 23.0561 4.80049 24.5995 6.10051 25.8995C7.40053 27.1995 8.94388 28.2307 10.6424 28.9343C12.341 29.6379 14.1615 30 16 30C17.8385 30 19.659 29.6379 21.3576 28.9343C23.0561 28.2307 24.5995 27.1995 25.8995 25.8995C27.1995 24.5995 28.2307 23.0561 28.9343 21.3576C29.6379 19.659 30 17.8385 30 16L30 16Z" stroke="#7D52F4" stroke-linecap="round" stroke-dasharray="1 4"/>
+<circle cx="2" cy="2" r="2" transform="matrix(1 0 0 -1 14 18)" fill="#7D52F4"/>
+<path d="M30 16C30 16.0293 29.9999 16.0586 29.9997 16.088" stroke="#7D52F4" stroke-width="4" stroke-linecap="round"/>
+<path d="M30 16C30 15.9707 29.9999 15.9414 29.9997 15.912" stroke="#7D52F4" stroke-width="4" stroke-linecap="round"/>
+<circle cx="2" cy="2" r="2" transform="matrix(-1 0 0 1 18 14)" fill="#7D52F4"/>
+<path d="M2 16C2 15.9707 2.00009 15.9414 2.00028 15.912" stroke="#7D52F4" stroke-width="4" stroke-linecap="round"/>
+<path d="M2 16C2 16.0293 2.00009 16.0586 2.00028 16.088" stroke="#7D52F4" stroke-width="4" stroke-linecap="round"/>
+</g>
+<defs>
+<pattern id="pattern0_11046_142376" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_11046_142376"/>
+</pattern>
+<clipPath id="clip0_11046_142376">
+<rect width="32" height="32" rx="12" fill="white"/>
+</clipPath>
+<image id="image0_11046_142376" width="1" height="1" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAAAAAFAAFkeJU4AAAAAElFTkSuQmCC"/>
+</defs>
+</svg>

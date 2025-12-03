@@ -1,0 +1,54 @@
+### Header
+
+`simple block`
+
+
+```json
+{
+  "title": "Header",
+  "description": "This is a header",
+  "tags": ["header", "markdown"]
+}
+```
+
+```java
+// This is a Java code block
+public class Example {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+```bash
+# This is a bash code block
+echo "Hello, World!"
+```
+
+[Node.js LTS](https://nodejs.org/en/download/)
+
+Open `http://localhost:5173` in your browser and log in using:
+
+- **Email:** user1@genfusion.ai
+- **Password:** password
+
+## Development
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+```plaintext
+genfusion-ui/
+├── docs/              # Detailed documentation
+├── src/               # SvelteKit source code
+├── static/            # Static assets
+├── .dockerignore      # Docker exclusions
+├── .env               # Environment variables (not in version control)
+├── Dockerfile         # Docker configuration
+├── README.md          # Project overview (this file)
+└── package.json       # Dependencies and scripts
+```
+

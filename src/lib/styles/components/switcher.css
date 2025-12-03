@@ -1,0 +1,44 @@
+@utility switcher {
+  @apply relative cursor-pointer;
+
+  & input {
+    @apply sr-only;
+  }
+
+  & .switch-toggle {
+    @apply w-9 h-5 bg-bgSub300 rounded-full relative transition-all;
+  }
+
+  & .switch-toggle:after {
+    content: '';
+    @apply absolute top-1 left-1 bg-staticWhite border rounded-full h-3 w-3 transition-all;
+  }
+
+  & input:checked + .switch-toggle {
+    @apply bg-primaryBase;
+  }
+
+  & input:checked + .switch-toggle::after {
+    @apply translate-x-4;
+  }
+}
+
+@utility switch-toggle {
+  .switcher & {
+    @apply w-9 h-5 bg-bgSub300 rounded-full relative transition-all;
+  }
+
+  .switcher &:after {
+    content: '';
+    @apply absolute top-1 left-1 bg-staticWhite border rounded-full h-3 w-3 transition-all;
+  }
+
+  .switcher input:checked + & {
+    @apply bg-primaryBase;
+  }
+
+  .switcher input:checked + &::after {
+    @apply translate-x-4;
+  }
+}
+

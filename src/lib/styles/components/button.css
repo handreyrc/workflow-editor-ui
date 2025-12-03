@@ -1,0 +1,59 @@
+@utility button {
+  @apply center gap-2 py-2.5 px-5 rounded-md text-sm font-500 hover:translate-y-[-1px] focus:translate-y-[-1px] transform duration-200 ease-in-out;
+
+  &:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  &:disabled:hover {
+    @apply transform-none translate-0;
+  }
+
+  &:disabled:focus {
+    @apply transform-none translate-0;
+  }
+}
+
+@utility button--sm {
+  @apply py-1.5 px-3 text-sm rounded-sm;
+}
+
+@utility button__empty {
+  @apply p-1;
+}
+
+@utility button__icon {
+  @apply rounded-full p-2;
+}
+
+@utility button__primary {
+  @apply bg-primaryBase border border-primaryBase text-staticWhite hover:bg-primaryDark;
+
+  &:disabled:hover {
+    @apply bg-primaryBase;
+  }
+
+  &.button__primary--outline {
+    @apply bg-transparent border border-primaryBase text-primaryBase hover:bg-primaryBase hover:text-staticWhite;
+  }
+}
+
+@utility button__secondary {
+  @apply border border-strokeSoft200 text-textSub600;
+}
+
+@utility button__danger {
+  @apply border border-errorBase bg-errorBase text-staticWhite;
+
+  &:not:disabled:hover {
+    @apply hover:bg-errorDark;
+  }
+
+  &.button__danger--outline {
+    @apply bg-transparent border border-errorBase text-errorBase;
+
+    &:not:disabled:hover {
+      @apply bg-errorBase text-staticWhite;
+    }
+  }
+}
