@@ -9,6 +9,7 @@ import { apiService } from '$lib/services/apiService'
 import { showErrorMessage, showSuccessMessage } from '$lib/stores/toastsStore'
 import workflowResp from '$lib/__mocks__/workflow-response-with-subflow.json'
 import chatResponse from '$lib/__mocks__/parser_example.txt?raw'
+import type { Project } from '../types/project'
 
 export interface WorkflowStore {
   chat: any
@@ -83,17 +84,33 @@ export const updateSelectedWorkflow = (workflow: Partial<WorkflowEntity>) => {
 
 // actions
 export const getWorkflowsAction = async (projectId: string, pagination?: PagePagination)=> {
+  // const endpoint = getUrl(
+  //   BASE_URLS.BASE_URL_PROJECT,
+  //   ApiEndpoints.PROJECTS,
+  //   projectId,
+  //   ApiEndpoints.WORKFLOWS
+  // )
+
+  //handrey
   const endpoint = getUrl(
     BASE_URLS.BASE_URL_PROJECT,
-    ApiEndpoints.PROJECTS,
-    projectId,
     ApiEndpoints.WORKFLOWS
   )
 
   const { page = 0, size = 20 } = pagination || {}
 
   try {
-    const data = await apiService<Paginated<WorkflowEntity[]>>({ endpoint: `${endpoint}?page=${page}&size=${size}` })
+    console.log("handrey --> getting workflows...");
+    //const data = await apiService<Paginated<WorkflowEntity[]>>({ endpoint: `${endpoint}?page=${page}&size=${size}` })
+
+    //handrey
+    const workflows: WorkflowEntity[] =  await apiService<WorkflowEntity[]>({ endpoint })
+
+    const data: Paginated<WorkflowEntity[]> = {
+      "totalCount": workflows.length,
+      items: workflows
+    }
+
     setWorkflows(data)
 
     return data
@@ -105,15 +122,23 @@ export const getWorkflowsAction = async (projectId: string, pagination?: PagePag
 }
 
 export const getWorkflowInfoAction = async (projectId: string, workflowId: string) => {
-  const endpoint = getUrl(
-    BASE_URLS.BASE_URL_PROJECT,
-    ApiEndpoints.PROJECTS,
-    projectId,
-    ApiEndpoints.WORKFLOWS,
-    workflowId
-  )
+  //   const endpoint = getUrl(
+  //   BASE_URLS.BASE_URL_PROJECT,
+  //   ApiEndpoints.PROJECTS,
+  //   projectId,
+  //   ApiEndpoints.WORKFLOWS,
+  //   workflowId
+  // )
+
+    //handrey
+    const endpoint = getUrl(
+      BASE_URLS.BASE_URL_PROJECT,
+      ApiEndpoints.WORKFLOWS,
+      workflowId
+    )
 
   try {
+    //handrey
     const data =  await apiService<WorkflowEntity>({ endpoint })
 
     setSelectedWorkflow(data)
@@ -127,19 +152,40 @@ export const getWorkflowInfoAction = async (projectId: string, workflowId: strin
 }
 
 export const createWorkflowAction = async (projectId: string, workflow: WorkflowEntity) => {
-  const endpoint = getUrl(
-    BASE_URLS.BASE_URL_PROJECT,
-    ApiEndpoints.PROJECTS,
-    projectId,
-    ApiEndpoints.WORKFLOWS
-  )
+  // const endpoint = getUrl(
+  //   BASE_URLS.BASE_URL_PROJECT,
+  //   ApiEndpoints.PROJECTS,
+  //   projectId,
+  //   ApiEndpoints.WORKFLOWS
+  // )
 
-  try {
-    return await apiService<WorkflowEntity>({
-      endpoint,
-      method: 'POST',
-      body: workflow
-    })
+  // try {
+  //   return await apiService<WorkflowEntity>({
+  //     endpoint,
+  //     method: 'POST',
+  //     body: workflow
+  //   })
+  // } catch (_error) {
+  //   const error = _error as Error
+  //   showErrorMessage({ description: error.message })
+
+  //   return null
+  // }
+
+
+    //handrey
+    const endpoint = getUrl(
+      BASE_URLS.BASE_URL_PROJECT,
+      ApiEndpoints.WORKFLOWS,
+      "1"
+    )
+
+    try {
+    //handrey
+    const data =  await apiService<WorkflowEntity>({ endpoint })
+
+    setSelectedWorkflow(data)
+    return data
   } catch (_error) {
     const error = _error as Error
     showErrorMessage({ description: error.message })
@@ -235,7 +281,6 @@ export const generateWorkflowAction = async (
     time: Date.now() + 1,
     isUser: false,
   } as WorkflowChatMessage
-
 
   const endpoint = getUrl(
     BASE_URLS.BASE_URL_WORKFLOW_GENERATOR,

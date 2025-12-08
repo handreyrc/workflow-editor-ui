@@ -50,10 +50,22 @@ export const getProjectsAction = async (pagination?: PagePagination)=> {
   const { page = 0, size = 20 } = pagination || {}
 
   try {
-    const data = await apiService<Paginated<Project[]>>({ endpoint: `${endpoint}?page=${page}&size=${size}` })
-    setProjects(data)
+    console.log("handrey --> getting projects...");
+    
+    //const data = await apiService<Paginated<Project[]>>({ endpoint: `${endpoint}?page=${page}&size=${size}` })
+    //handrey 
+    const projects =  await apiService<Project[]>({ endpoint })
+    
+    const data: Paginated<Project[]> = {
+      "totalCount": projects.length,
+      items: projects
+    }
 
+    setProjects(data) 
     return data
+
+    // setProjects(dataMock) 
+    // return dataMock
   } catch (_error) {
     const error = _error as Error
     showErrorMessage({ description: error.message })

@@ -1,0 +1,627 @@
+  {
+    "projects": [
+        {   
+            "id": "1",
+            "name": "Project Mock",
+            "createdAt": "2025-12-05T15:59:00.123Z",
+            "deleted": false,
+            "description": "Mocked Project to workaround services",
+            "organizationId": "CNCF",
+            "owner": "CNCF",
+            "updatedAt": "2025-12-05T15:59:00.123Z",
+            "version": 1.0
+        }    
+    ],
+    "workflows": [
+        {
+            "id": "1",
+            "name": "Workflow Error example",
+            "key": "string",
+            "content": {
+                "workflow": {
+                    "id": "compensation",
+                    "version": "1.0",
+                    "specVersion": "0.8",
+                    "name": "Workflow Error example",
+                    "description": "An example of how compensation works",
+                    "start": "printStatus",
+                    "states": [
+                        {
+                        "name": "printStatus",
+                        "type": "inject",
+                        "data": {
+                            "compensated": false
+                        },
+                        "compensatedBy": "compensating",
+                        "transition": "branch"
+                        },
+                        {
+                        "name": "branch",
+                        "type": "switch",
+                        "dataConditions": [
+                            {
+                            "condition": ".shouldCompensate==true",
+                            "transition": {
+                                "nextState": "finish_compensate",
+                                "compensate": true
+                            }
+                            },
+                            {
+                            "condition": ".shouldCompensate==false",
+                            "transition": {
+                                "nextState": "finish_not_compensate",
+                                "compensate": false
+                            }
+                            }
+                        ],
+                        "defaultCondition": {
+                            "transition": "finish_not_compensate"
+                        }
+                        },
+                        {
+                        "name": "compensating",
+                        "usedForCompensation": true,
+                        "type": "inject",
+                        "data": {
+                            "compensated": true
+                        },
+                        "transition": "compensating_more"
+                        },
+                        {
+                        "name": "compensating_more",
+                        "usedForCompensation": true,
+                        "type": "inject",
+                        "data": {
+                            "compensating_more": "Real Betis Balompie"
+                        }
+                        },
+                        {
+                        "name": "finish_compensate",
+                        "type": "operation",
+                        "actions": [],
+                        "end": {
+                            "terminate": true
+                        }
+                        },
+                        {
+                        "name": "finish_not_compensate",
+                        "type": "operation",
+                        "actions": [],
+                        "end": {
+                            "terminate": true
+                        }
+                        }
+                    ]
+                },
+                "key": ""
+            },
+            "status": null,
+            "variables": null,
+            "mapping": null,
+            "data": {},
+            "project": {   
+                "id": "1",
+                "name": "Project Mock",
+                "createdAt": "2025-12-05T15:59:00.123Z",
+                "deleted": false,
+                "description": "Mocked Project to workaround services",
+                "organizationId": "CNCF",
+                "owner": "CNCF",
+                "updatedAt": "2025-12-05T15:59:00.123Z",
+                "version": 1.0
+            }, 
+            "llmConfigurationId": null,
+            "processInstanceId": null,
+            "generatedWorkflowId": null,
+            "executionTime": null,
+            "completionTime": null,
+            "description": "An example of how compensation works",
+            "components": null,
+            "tools": null,
+            "errors": null,
+            "instructions": null,
+            "labels": null
+        },
+        {
+            "id": "2",
+            "name": "Greeting workflow",
+            "key": "string",
+            "content": {
+                "workflow": {
+                    "id": "jsongreet",
+                    "version": "1.0",
+                    "specVersion": "0.8",
+                    "name": "Greeting workflow",
+                    "description": "JSON based greeting workflow",
+                    "start": "ChooseOnLanguage",
+                    "functions": [
+                        {
+                        "name": "greetFunction",
+                        "type": "custom",
+                        "operation": "sysout"
+                        }
+                    ],
+                    "states": [
+                        {
+                        "name": "ChooseOnLanguage",
+                        "type": "switch",
+                        "dataConditions": [
+                            {
+                            "condition": "${ .language == \"English\" }",
+                            "transition": "GreetInEnglish"
+                            },
+                            {
+                            "condition": "${ .language == \"Spanish\" }",
+                            "transition": "GreetInSpanish"
+                            }
+                        ],
+                        "defaultCondition": {
+                            "transition": "GreetInEnglish"
+                        }
+                        },
+                        {
+                        "name": "GreetInEnglish",
+                        "type": "inject",
+                        "data": {
+                            "greeting": "Hello from JSON Workflow, "
+                        },
+                        "transition": "GreetPerson"
+                        },
+                        {
+                        "name": "GreetInSpanish",
+                        "type": "inject",
+                        "data": {
+                            "greeting": "Saludos desde JSON Workflow, "
+                        },
+                        "transition": "GreetPerson"
+                        },
+                        {
+                        "name": "GreetPerson",
+                        "type": "operation",
+                        "actions": [
+                            {
+                            "name": "greetAction",
+                            "functionRef": {
+                                "refName": "greetFunction",
+                                "arguments": {
+                                "message": ".greeting+.name"
+                                }
+                            }
+                            }
+                        ],
+                        "end": {
+                            "terminate": true
+                        }
+                        }
+                    ]
+                },
+                "key": ""
+            },
+            "status": null,
+            "variables": null,
+            "mapping": null,
+            "data": {},
+            "project": {   
+                "id": "1",
+                "name": "Project Mock",
+                "createdAt": "2025-12-05T15:59:00.123Z",
+                "deleted": false,
+                "description": "Mocked Project to workaround services",
+                "organizationId": "CNCF",
+                "owner": "CNCF",
+                "updatedAt": "2025-12-05T15:59:00.123Z",
+                "version": 1.0
+            }, 
+            "llmConfigurationId": null,
+            "processInstanceId": null,
+            "generatedWorkflowId": null,
+            "executionTime": null,
+            "completionTime": null,
+            "description": "JSON based greeting workflow",
+            "components": null,
+            "tools": null,
+            "errors": null,
+            "instructions": null,
+            "labels": null
+        },
+        {
+            "id": "3",
+            "name": "Applicant Workflow",
+            "key": "string",
+            "content": {
+                "workflow": {
+                    "id": "applicantworkflow",
+                    "name": "Applicant Workflow",
+                    "description": "Job Application Events Example",
+                    "expressionLang": "jsonpath",
+                    "version": "1.0",
+                    "specVersion": "0.8",
+                    "start": "HandleNewApplicant",
+                    "events": [
+                        {
+                        "name": "NewApplicantEvent",
+                        "source": "",
+                        "type": "applicants"
+                        },
+                        {
+                        "name": "ApplicantDecisionEvent",
+                        "source": "",
+                        "type": "decisions"
+                        }
+                    ],
+                    "states": [
+                        {
+                        "name": "HandleNewApplicant",
+                        "type": "event",
+                        "onEvents": [
+                            {
+                            "eventRefs": ["NewApplicantEvent"],
+                            "actions": []
+                            }
+                        ],
+                        "transition": "VerifyNewApplicant"
+                        },
+                        {
+                        "name": "VerifyNewApplicant",
+                        "type": "switch",
+                        "dataConditions": [
+                            {
+                            "condition": "{{ $.[?(@.salary >= 3000)] }}",
+                            "transition": "HandleApproved"
+                            },
+                            {
+                            "condition": "{{ $.[?(@.salary < 3000)] }}",
+                            "transition": "HandleDenied"
+                            }
+                        ],
+                        "defaultCondition": {
+                            "transition": "HandleDenied"
+                        }
+                        },
+                        {
+                        "name": "HandleApproved",
+                        "type": "inject",
+                        "data": {
+                            "decision": "Approved"
+                        },
+                        "end": {
+                            "produceEvents": [
+                            {
+                                "eventRef": "ApplicantDecisionEvent"
+                            }
+                            ]
+                        }
+                        },
+                        {
+                        "name": "HandleDenied",
+                        "type": "inject",
+                        "data": {
+                            "decision": "Denied"
+                        },
+                        "end": {
+                            "produceEvents": [
+                            {
+                                "eventRef": "ApplicantDecisionEvent"
+                            }
+                            ]
+                        }
+                        }
+                    ]
+                },
+                "key": ""
+            },
+            "status": null,
+            "variables": null,
+            "mapping": null,
+            "data": {},
+            "project": {   
+                "id": "1",
+                "name": "Project Mock",
+                "createdAt": "2025-12-05T15:59:00.123Z",
+                "deleted": false,
+                "description": "Mocked Project to workaround services",
+                "organizationId": "CNCF",
+                "owner": "CNCF",
+                "updatedAt": "2025-12-05T15:59:00.123Z",
+                "version": 1.0
+            }, 
+            "llmConfigurationId": null,
+            "processInstanceId": null,
+            "generatedWorkflowId": null,
+            "executionTime": null,
+            "completionTime": null,
+            "description": "Job Application Events Example",
+            "components": null,
+            "tools": null,
+            "errors": null,
+            "instructions": null,
+            "labels": null
+        },
+        {
+            "id": "4",
+            "name": "Order workflow",
+            "key": "string",
+            "content": {
+                "workflow": {
+                "id": "order",
+                "version": "1.0",
+                "specVersion": "0.8",
+                "name": "Order Workflow",
+                "description": "Order Workflow Sample",
+                "start": "Order Received",
+                "functions": [
+                    {
+                    "name": "printMessage",
+                    "type": "custom",
+                    "operation": "sysout"
+                    },
+                    {
+                    "name": "sendOrder",
+                    "operation": "specs/supplier.yaml#sendOrder",
+                    "type": "rest"
+                    },
+                    {
+                    "name": "cancelOrder",
+                    "operation": "specs/supplier.yaml#cancelOrder",
+                    "type": "rest"
+                    }
+                ],
+                "events": [
+                    {
+                    "name": "orderEvent",
+                    "kind": "consumed",
+                    "type": "OrderEventType",
+                    "source": "Client",
+                    "correlation": [
+                        {
+                        "contextAttributeName": "orderid"
+                        }
+                    ]
+                    },
+                    {
+                    "name": "shippingEvent",
+                    "kind": "consumed",
+                    "type": "ShippingEventType",
+                    "source": "Shipper",
+                    "correlation": [
+                        {
+                        "contextAttributeName": "orderid"
+                        }
+                    ]
+                    },
+                    {
+                    "name": "cancelEvent",
+                    "kind": "consumed",
+                    "type": "CancelEventType",
+                    "source": "Client",
+                    "correlation": [
+                        {
+                        "contextAttributeName": "orderid"
+                        }
+                    ]
+                    }
+                ],
+                "states": [
+                    {
+                    "name": "Order Received",
+                    "type": "event",
+                    "onEvents": [
+                        {
+                        "eventRefs": ["orderEvent"]
+                        }
+                    ],
+                    "transition": "Check Inventory"
+                    },
+                    {
+                    "name": "Check Inventory",
+                    "type": "operation",
+                    "actions": [
+                        {
+                        "name": "printAction",
+                        "functionRef": {
+                            "refName": "printMessage",
+                            "arguments": {
+                            "message": "\"Check Inventory \" + .orderId"
+                            }
+                        },
+                        "actionDataFilter": {
+                            "fromStateData": ".",
+                            "results": "{inventory: .item | test(\"0+\") }"
+                        }
+                        }
+                    ],
+                    "transition": "Item Available?"
+                    },
+                    {
+                    "name": "Item Available?",
+                    "type": "switch",
+                    "dataConditions": [
+                        {
+                        "condition": ".inventory",
+                        "transition": "Prepare for Shipping"
+                        }
+                    ],
+                    "defaultCondition": {
+                        "transition": "Forward to External Supplier"
+                    }
+                    },
+                    {
+                    "name": "Prepare for Shipping",
+                    "type": "operation",
+                    "transition": "Order Shipped or Cancelled",
+                    "actions": [
+                        {
+                        "name": "printAction",
+                        "functionRef": {
+                            "refName": "printMessage",
+                            "arguments": {
+                            "message": "\"Prepare for Shipping\""
+                            }
+                        }
+                        }
+                    ]
+                    },
+                    {
+                    "name": "Forward to External Supplier",
+                    "type": "operation",
+                    "transition": "Order Shipped or Cancelled",
+                    "actions": [
+                        {
+                        "name": "sendOrderRestCall",
+                        "functionRef": {
+                            "refName": "sendOrder",
+                            "arguments": {
+                            "supplier-id": "\"1\"",
+                            "content": ".orderId"
+                            }
+                        }
+                        }
+                    ]
+                    },
+                    {
+                    "name": "Order Shipped or Cancelled",
+                    "type": "event",
+                    "transition": "Is Shipped?",
+                    "exclusive": true,
+                    "onEvents": [
+                        {
+                        "eventRefs": ["shippingEvent"]
+                        },
+                        {
+                        "eventRefs": ["cancelEvent"],
+                        "eventDataFilter": {
+                            "data": "{cancel:true}"
+                        }
+                        }
+                    ]
+                    },
+                    {
+                    "name": "Is Shipped?",
+                    "type": "switch",
+                    "dataConditions": [
+                        {
+                        "name": "order cancelled",
+                        "condition": ".cancel == true",
+                        "transition": "Compensate Order"
+                        }
+                    ],
+                    "defaultCondition": {
+                        "transition": "Notify Customer"
+                    }
+                    },
+                    {
+                    "name": "Compensate Order",
+                    "type": "operation",
+                    "actions": [
+                        {
+                        "name": "printAction",
+                        "functionRef": {
+                            "refName": "printMessage",
+                            "arguments": {
+                            "message": "\"Compensate Order\""
+                            }
+                        }
+                        }
+                    ],
+                    "end": {
+                        "terminate": true,
+                        "compensate": true
+                    }
+                    },
+                    {
+                    "name": "Notify Customer",
+                    "type": "operation",
+                    "actions": [
+                        {
+                        "name": "printAction",
+                        "functionRef": {
+                            "refName": "printMessage",
+                            "arguments": {
+                            "message": "\"Notify Customer\""
+                            }
+                        }
+                        }
+                    ],
+                    "end": {
+                        "terminate": true
+                    }
+                    }
+                ]
+                },
+                "key": ""
+            },
+            "status": null,
+            "variables": null,
+            "mapping": null,
+            "data": {},
+            "project": {   
+                "id": "1",
+                "name": "Project Mock",
+                "createdAt": "2025-12-05T15:59:00.123Z",
+                "deleted": false,
+                "description": "Mocked Project to workaround services",
+                "organizationId": "CNCF",
+                "owner": "CNCF",
+                "updatedAt": "2025-12-05T15:59:00.123Z",
+                "version": 1.0
+            }, 
+            "llmConfigurationId": null,
+            "processInstanceId": null,
+            "generatedWorkflowId": null,
+            "executionTime": null,
+            "completionTime": null,
+            "description": "Order workflow sample",
+            "components": null,
+            "tools": null,
+            "errors": null,
+            "instructions": null,
+            "labels": null
+        },
+        {
+            "id": "5",
+            "name": "Empty workflow",
+            "key": "string",
+            "content": {
+                "workflow": {
+                "id": "empty",
+                "version": "1.0",
+                "specVersion": "0.8",
+                "name": "Empty Workflow",
+                "description": "Empty Workflow Sample",
+                "start": null,
+                "states": []
+                },
+                "key": ""
+            },
+            "status": null,
+            "variables": null,
+            "mapping": null,
+            "data": {},
+            "project": {   
+                "id": "1",
+                "name": "Project Mock",
+                "createdAt": "2025-12-05T15:59:00.123Z",
+                "deleted": false,
+                "description": "Mocked Project to workaround services",
+                "organizationId": "CNCF",
+                "owner": "CNCF",
+                "updatedAt": "2025-12-05T15:59:00.123Z",
+                "version": 1.0
+            }, 
+            "llmConfigurationId": null,
+            "processInstanceId": null,
+            "generatedWorkflowId": null,
+            "executionTime": null,
+            "completionTime": null,
+            "description": "Empty Workflow",
+            "components": null,
+            "tools": null,
+            "errors": null,
+            "instructions": null,
+            "labels": null
+        }
+
+    ]
+
+    
+   }

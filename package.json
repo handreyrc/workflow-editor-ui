@@ -3,14 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
+    "dev": "npm run start-server & vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
     "lint": "eslint src",
     "format": "prettier --write .",
-    "test": "vitest --run"
+    "test": "vitest --run",
+    "start-server": "json-server --watch db.json --port 4700"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
@@ -52,6 +53,7 @@
     "elkjs": "^0.10.0",
     "graphql": "^16.11.0",
     "highlight.js": "^11.11.1",
+    "json-server": "^1.0.0-beta.3",
     "jsonwebtoken": "^9.0.2",
     "keycloak-js": "^26.2.0",
     "lottie-web": "^5.12.2",

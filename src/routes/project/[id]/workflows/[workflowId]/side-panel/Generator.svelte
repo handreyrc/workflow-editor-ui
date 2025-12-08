@@ -43,28 +43,29 @@
 
   const workflowDataContext: WorkflowDataContext = getContext(WORKFLOW_DATA_CONTEXT)
 
-  onMount(() => {
-    const endpoint = getUrl(BASE_URLS.BASE_URL_WORKFLOW_GENERATOR, ApiEndpoints.PROJECTS, projectId, ApiEndpoints.WORKFLOWS, workflowId, 'chat')
-    const quarkusHeaderProtocol = encodeURIComponent('quarkus-http-upgrade#Authorization#Bearer ' + getAuthToken())
+  // handrey do not connect to chat
+  // onMount(() => {
+  //   const endpoint = getUrl(BASE_URLS.BASE_URL_WORKFLOW_GENERATOR, ApiEndpoints.PROJECTS, projectId, ApiEndpoints.WORKFLOWS, workflowId, 'chat')
+  //   const quarkusHeaderProtocol = encodeURIComponent('quarkus-http-upgrade#Authorization#Bearer ' + getAuthToken())
 
-    socket = new SocketService(
-      endpoint,
-      {
-        protocols: ['bearer-token-carrier', quarkusHeaderProtocol],
-        reconnect: true,
-        protocolOnReconnect: () => {
-          const quarkusHeaderProtocol = encodeURIComponent('quarkus-http-upgrade#Authorization#Bearer ' + getAuthToken())
-          return ['bearer-token-carrier', quarkusHeaderProtocol]
-        },
-        onChangeConnection: (isConnected: boolean) => {
-          isChatConnected = isConnected
-        }
-      }
-    )
+  //   socket = new SocketService(
+  //     endpoint,
+  //     {
+  //       protocols: ['bearer-token-carrier', quarkusHeaderProtocol],
+  //       reconnect: true,
+  //       protocolOnReconnect: () => {
+  //         const quarkusHeaderProtocol = encodeURIComponent('quarkus-http-upgrade#Authorization#Bearer ' + getAuthToken())
+  //         return ['bearer-token-carrier', quarkusHeaderProtocol]
+  //       },
+  //       onChangeConnection: (isConnected: boolean) => {
+  //         isChatConnected = isConnected
+  //       }
+  //     }
+  //   )
 
-    attachEventListeners()
-    socket.onClientRecreated = attachEventListeners
-  })
+  //   attachEventListeners()
+  //   socket.onClientRecreated = attachEventListeners
+  // })
 
   onDestroy(() => {
     if (socket) {
