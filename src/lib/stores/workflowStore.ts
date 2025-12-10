@@ -207,21 +207,22 @@ export const updateWorkflowAction = async (
     workflowId
   )
 
-  try {
-    const data =  await apiService<WorkflowEntity>({
-      endpoint,
-      method: 'PUT',
-      body: workflow
-    })
+  return workflow;
+  // try {
+  //   const data =  await apiService<WorkflowEntity>({
+  //     endpoint,
+  //     method: 'PUT',
+  //     body: workflow
+  //   })
 
-    showSuccessMessage({ description: 'The workflow has been successfully saved' })
-    return data
-  } catch (_error) {
-    const error = _error as Error
-    showErrorMessage({ description: error.message })
+  //   showSuccessMessage({ description: 'The workflow has been successfully saved' })
+  //   return data
+  // } catch (_error) {
+  //   const error = _error as Error
+  //   showErrorMessage({ description: error.message })
 
-    return null
-  }
+  //   return null
+  // }
 }
 
 export const deleteWorkflowAction = async (projectId: string, workflowId: string) => {
